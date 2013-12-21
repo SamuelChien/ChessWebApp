@@ -1,0 +1,300 @@
+<html>
+<head>
+<script>
+    var shapes = []; // This array hold all the objects of all classes on the canvas.
+    var selected_shape;
+
+<<<<<<< .mine
+    var canvas;
+    var context;
+    var x,y;
+    var turn; //if false, player1 else player2
+=======
+var canvas;
+var context;
+var x,y;
+>>>>>>> .r183
+
+<<<<<<< .mine
+    /**
+     * main function to create the canvas and draw the seats.
+     */
+    window.onload = function() {
+      canvas = document.getElementById("qanvaz");
+=======
+/**
+ * main function to create the canvas (board) and the spaces for the discs.
+ */
+window.onload = function() {
+	  canvas = document.getElementById("qanvaz");
+	
+	  // ...then set the internal size to match
+	  canvas.width  = canvas.offsetWidth;
+	  canvas.height = canvas.offsetHeight;
+>>>>>>> .r183
+
+<<<<<<< .mine
+      // ...then set the internal size to match
+      canvas.width  = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+=======
+	  context = canvas.getContext("2d");
+	  canvas.onmousedown = canvasDown;
+	  //var tableString = '<?php echo $tableString?>';
+	  //var table = tableString.split(", ");
+	  for (var i=1;i <= 7; i++) {
+		for (var j=1;j <=6; j++) {
+			//shapes.push(new Seat(canvas,10+30*i,10+30*j,20,20, table.indexOf(i.toString())>-1, i+j));
+			shapes.push(new Seat(canvas,80*i-20,80*j-20,30,0, false, i+j, j, i));
+		}
+	  }
+	  context.stroke();
+	  drawShapes();
+	};var selected_seat; // The last selected shape
+>>>>>>> .r183
+
+      context = canvas.getContext("2d");
+      played = false;
+      canvas.onmousedown = canvasDown;
+      var tableString = "hello";
+      var table = tableString.split(", ");
+      var rows = 0;
+      var cols = 0;
+      for (var i=1;i <= 7; i++) {
+        for (var j=1;j <=6; j++) {
+            //shapes.push(new Seat(canvas,10+30*i,10+30*j,20,20, table.indexOf(i.toString())>-1, i+j));
+            shapes.push(new Seat(canvas,80*i-20,80*j-20,30,0, false, i+j, j, i));
+        }
+      }
+      context.stroke();
+      drawShapes();
+    };var selected_seat; // The last selected shape
+
+    /**
+     * react to event of clicking a seat on the canvas.
+     * if seat is not taken, change its color to green, 
+     * otherwise do nothing.
+     */
+    function canvasDown(e){
+
+        // x and y coordinates of the current position of the mouse pointer
+        x = e.pageX - totalOffsetLeft(canvas); 
+        y = e.pageY - totalOffsetTop(canvas);
+
+        // Look for the clicked object.
+        for(var i=shapes.length-1; i>=0; i--) {
+
+            var shape = shapes[i];
+
+            // If mouse is within the boundaries of an object
+            // then move it to the end of the array to make it
+            // the top-most shape.
+            if (shape.testHit(x, y)){// && shape.isTaken == false && isAvailable(shape)==true) {
+              var foundSpot = findCorrectSpot(shape);
+              if (foundSpot != null) {
+                deselect();
+                foundSpot.isSelected = true;
+                selected_shape = foundSpot;
+              }
+              //shape.isSelected = true;
+              //selected_shape = shape;
+              //document.getElementById("submitBtn").href = "/main/creditCardPayment/" + document.getElementById("showID").value + "/" + selected_shape.id;
+              drawShapes();
+              return;
+            }
+        }
+
+    }
+    
+    function findCorrectSpot(shape) {
+        var column = shape.column;
+        var row = shape.row;
+        
+        var lowest = 0;
+        var correctSpot;
+        for (var i=shapes.length-1; i>=0; i--) {
+            var candidate = shapes[i];
+            if (candidate.column === column && candidate.isSelected==false && candidate.row > lowest) {
+                lowest = candidate.row;
+                correctSpot = candidate;
+            } 
+        }
+        
+        if (lowest < 1) {
+            return null;
+        } else {
+            return correctSpot;
+        }
+    }
+
+    /**
+     * unselect a seat.
+     */
+    function deselect(){
+        if (selected_shape != null) {
+            selected_shape.isSelected = false;
+            selected_shape = null;
+        }
+    }
+
+    /**
+     * Draw all the objects on the canvas that are in the array shapes. 
+     */ 
+    function drawShapes() {
+      // Clear the canvas.
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      // Go through all the shapes.
+      for(var i=0; i<shapes.length; i++) {
+        var shape = shapes[i];
+        shape.draw();
+      }
+    }
+
+    /**
+     * create a seat object with the position and size parameters as well as 
+     * a boolean "is_taken" to tell if the seat is taken or not, and finally the id of the seat.
+     */
+    //function Seat(canvas, x, y, width, height, is_taken, id) {
+    function Seat(canvas, x, y, radius, start, is_taken, id, row, column) {
+
+          this.context = canvas.getContext("2d");
+          // x and y coordinates, width and height
+          // and the color of the rectangle
+          this.x = x;
+          this.y = y;
+          this.column = column;
+          this.row = row;
+          //this.width = width;
+          //this.height = height;
+          this.radius = radius;
+          this.start = start;
+          this.isTaken = is_taken;
+          this.isSelected = false;
+          this.id = id;
+          this.color = "yellow";
+
+<<<<<<< .mine
+          this.draw = function () {
+            // Draw the rectangle.
+            this.context.globalAlpha = 0.85;
+            this.context.beginPath();
+            //this.context.rect(this.x, this.y, this.width, this.height);
+            this.context.arc(this.x, this.y, this.radius, this.start, 2*Math.PI);
+
+            if (this.isTaken) {
+                  this.color = "yellow";
+                }
+                else if (this.isSelected){
+                  this.color = "green";
+                } else {
+                    this.color = "white";
+                }
+            this.context.fillStyle = this.color;
+            this.context.strokeStyle = "black";
+            this.context.lineWidth = 3;
+            this.context.fill();
+            this.context.stroke();
+
+          };
+
+          // Test whether mouse is clicked within rectangle or outside.
+          this.testHit = function(testX,testY) {
+            //if (this.x <= testX && this.x + this.width >= testX && (this.y <= testY) && this.y + this.height >= testY) {
+            if (Math.sqrt(Math.pow(this.x - testX, 2) + Math.pow(this.y - testY, 2)) <= this.radius) {
+              return true;
+=======
+/**
+ * create a seat object with the position and size parameters as well as 
+ * a boolean "is_taken" to tell if the seat is taken or not, and finally the id of the seat.
+ */
+//function Seat(canvas, x, y, width, height, is_taken, id) {
+function Seat(canvas, x, y, radius, start, is_taken, id, row, column) {
+
+      this.context = canvas.getContext("2d");
+      // x and y coordinates, width and height
+      // and the color of the rectangle
+      this.x = x;
+      this.y = y;
+	  this.column = column;
+	  this.row = row;
+      //this.width = width;
+      //this.height = height;
+	  this.radius = radius;
+	  this.start = start;
+      this.isTaken = is_taken;
+      this.isSelected = false;
+      this.id = id;
+      this.color = "yellow";
+
+      this.draw = function () {
+        // Draw the rectangle.
+        this.context.globalAlpha = 0.85;
+        this.context.beginPath();
+        //this.context.rect(this.x, this.y, this.width, this.height);
+		this.context.arc(this.x, this.y, this.radius, this.start, 2*Math.PI);
+
+        if (this.isTaken) {
+              this.color = "yellow";
+>>>>>>> .r183
+            }
+<<<<<<< .mine
+            return false;
+          };
+=======
+            else if (this.isSelected){
+              this.color = "green";
+            } else {
+                this.color = "white";
+            }
+        this.context.fillStyle = this.color;
+        this.context.strokeStyle = "black";
+		this.context.lineWidth = 3;
+        this.context.fill();
+        this.context.stroke();
+
+      };
+
+      // Test whether mouse is clicked within rectangle or outside.
+      this.testHit = function(testX,testY) {
+        //if (this.x <= testX && this.x + this.width >= testX && (this.y <= testY) && this.y + this.height >= testY) {
+		if (Math.sqrt(Math.pow(this.x - testX, 2) + Math.pow(this.y - testY, 2)) <= this.radius) {
+          return true;
+        }
+        return false;
+      };
+>>>>>>> .r183
+
+    };
+
+    /**
+     * helper to get coordinates of mouse pointer. 
+     */
+    function totalOffsetLeft(element){
+        var offset = element.offsetLeft;
+        while (element = element.offsetParent){
+                offset += element.offsetLeft;
+            } ;
+        return offset;
+    };
+
+    /**
+     * helper to get coordinates of mouse pointer. 
+     */
+    function totalOffsetTop(element){
+        var offset = element.offsetTop;
+        while (element = element.offsetParent){
+                offset += element.offsetTop;
+            } ;
+        return offset;
+    };
+    </script>
+</head>
+
+<body>
+    <h1>Connect 4</h1>
+<<<<<<< .mine
+    <canvas class="paintcanvas" id="qanvaz" width="600" height="520" style="border:3px solid #000000;"></canvas><br>
+</body>
+</html>=======
+    <canvas class="paintcanvas" id="qanvaz" width="600" height="520" style="border:3px solid #000000;"></canvas>
+</div>>>>>>>> .r183

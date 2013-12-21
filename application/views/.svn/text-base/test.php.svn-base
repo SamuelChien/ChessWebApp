@@ -1,0 +1,114 @@
+<?php $this->load->view('i/header'); ?>
+<div id="boardGame">
+    <input type='hidden' id='totalCount' value='0'>
+    <input type='hidden' id='column1Count' value='0'>
+    <input type='hidden' id='column2Count' value='0'>
+    <input type='hidden' id='column3Count' value='0'>
+    <input type='hidden' id='column4Count' value='0'>
+    <input type='hidden' id='column5Count' value='0'>
+    <input type='hidden' id='column6Count' value='0'>
+    <input type='hidden' id='column7Count' value='0'>
+    <div id="column1" class="column">
+        <div id="column1-row1" class="row">
+        </div>
+        <div id="column1-row2" class="row">
+        </div>
+        <div id="column1-row3" class="row">
+        </div>
+        <div id="column1-row4" class="row">
+        </div>
+        <div id="column1-row5" class="row">
+        </div>
+        <div id="column1-row6" class="row">
+        </div>
+    </div>
+    <div id="column2" class="column">
+        <div id="column2-row1" class="row">
+        </div>
+        <div id="column2-row2" class="row">
+        </div>
+        <div id="column2-row3" class="row">
+        </div>
+        <div id="column2-row4" class="row">
+        </div>
+        <div id="column2-row5" class="row">
+        </div>
+        <div id="column2-row6" class="row">
+        </div>
+    </div>
+    <div id="column3" class="column">
+        <div id="column3-row1" class="row">
+        </div>
+        <div id="column3-row2" class="row">
+        </div>
+        <div id="column3-row3" class="row">
+        </div>
+        <div id="column3-row4" class="row">
+        </div>
+        <div id="column3-row5" class="row">
+        </div>
+        <div id="column3-row6" class="row">
+        </div>
+    </div>
+    <div id="column4" class="column">
+        <div id="column4-row1" class="row">
+        </div>
+        <div id="column4-row2" class="row">
+        </div>
+        <div id="column4-row3" class="row">
+        </div>
+        <div id="column4-row4" class="row">
+        </div>
+        <div id="column4-row5" class="row">
+        </div>
+        <div id="column4-row6" class="row">
+        </div>
+    </div>
+    <div id="column5" class="column">
+        <div id="column5-row1" class="row">
+        </div>
+        <div id="column5-row2" class="row">
+        </div>
+        <div id="column5-row3" class="row">
+        </div>
+        <div id="column5-row4" class="row">
+        </div>
+        <div id="column5-row5" class="row">
+        </div>
+        <div id="column5-row6" class="row">
+        </div>
+    </div>
+    <div id="column6" class="column">
+        <div id="column6-row1" class="row">
+        </div>
+        <div id="column6-row2" class="row">
+        </div>
+        <div id="column6-row3" class="row">
+        </div>
+        <div id="column6-row4" class="row">
+        </div>
+        <div id="column6-row5" class="row">
+        </div>
+        <div id="column6-row6" class="row">
+        </div>
+    </div>
+    <div id="column7" class="column">
+        <div id="column7-row1" class="row">
+        </div>
+        <div id="column7-row2" class="row">
+        </div>
+        <div id="column7-row3" class="row">
+        </div>
+        <div id="column7-row4" class="row">
+        </div>
+        <div id="column7-row5" class="row">
+        </div>
+        <div id="column7-row6" class="row">
+        </div>
+    </div>
+</div>
+<?php 
+    echo "<input type='hidden' id='user_id' value='".$user->id."'>";
+    echo "<input type='hidden' id='match_id' value='".$user->match_id."'>";
+?>
+<?php $this->load->view('i/gameFooter'); ?>
